@@ -22,7 +22,17 @@
     $('#menu_button2').children()[0].href = $('#menu_button2').children()[0].href + '#q=24&h=2';
 
     if (purl().attr("file") == 'browse.php') {
-        eval("fillTable=" + String(fillTable).replace("href=\"#g='+matches[x].cat+'", "href=\"#g='+matches[x].cat+'&q=24&h=2").replace('function fillTable(', 'function('));
+        var fillTable_=fillTable;
+        fillTable=function (y) {
+            fillTable_(y);
+            $(".torrents_sorozat>a").unbind('click').click(function () {
+                var title = $(this).find("img").attr("title");
+                this.href="#&q=24&h=2&g="+purl(this).fparam("g");
+                if ($("#search_cat_sel_eng").find(">optgroup:first").text().indexOf(title) != -1) {
+                    this.href+="&c="+btoa($(this).parent().next().find("td:first>a").text().replace(/ - [0-9]+x[0-9]+..\[.*/, ""));
+                }
+            })
+        };
         $("body").append('<div id="dialog" title="Add to qBittorrent" style="display: none;">' +
             '<form id="dlForm"><input type="hidden" id="dlUrl">' +
             '<label>Location: <span id="locationBase"><span id="mediaLocation"></span>/' +
