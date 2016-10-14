@@ -20,4 +20,8 @@
     }
 
     $('#menu_button2').children()[0].href = $('#menu_button2').children()[0].href + '#q=24&h=2';
+    
+    if (purl().attr("file") == 'browse.php') {
+        eval("fillTable=" + String(fillTable).replace("href=\"#g='+matches[x].cat+'", "href=\"#g='+matches[x].cat+'&q=24&h=2").replace('function fillTable(', 'function('));
+    }
 })();
