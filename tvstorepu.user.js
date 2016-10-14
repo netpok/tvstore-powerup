@@ -15,4 +15,7 @@
 'use strict';
 
 (function () {
+    if (purl().attr("protocol") != "https") {
+        location.href = location.href.replace('http:', 'https:');
+    }
 })();
