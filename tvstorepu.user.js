@@ -20,9 +20,16 @@
     }
 
     $('#menu_button2').children()[0].href = $('#menu_button2').children()[0].href + '#q=24&h=2';
-    
+
     if (purl().attr("file") == 'browse.php') {
         eval("fillTable=" + String(fillTable).replace("href=\"#g='+matches[x].cat+'", "href=\"#g='+matches[x].cat+'&q=24&h=2").replace('function fillTable(', 'function('));
+        $("body").append('<div id="dialog" title="Add to qBittorrent" style="display: none;">' +
+            '<form id="dlForm"><input type="hidden" id="dlUrl">' +
+            '<label>Location: <span id="locationBase"><span id="mediaLocation"></span>/' +
+            '<span id="typeLocation">tv.shows</span>/</span>' +
+            '<input type="text" id="location" required="required"></label><br>' +
+            '<label>Label: <input id="dlLabel" value="TV shows"></label><br>' +
+            '<label>Apply for all: <input type="checkbox" id="applyForAll"></label></form></div>');
         GM_addStyle('.ui-widget-header .ui-icon { background-image: url(https://code.jquery.com/ui/1.12.1/themes/base/images/ui-icons_444444_256x240.png)!important;} .torrents_trakt a{outline: none;width: 28px;height: 27px;display: block;padding: 0;background: url(https://cdn-images-1.medium.com/fit/c/36/36/1*r3Oe6V2xRiOo9zlLIByGXA.png) no-repeat center;background-size: 20px;} .torrents_sj a{outline: none;width: 28px;height: 27px;display: block;padding: 0;background: url(/pic/ico_junkie.png) no-repeat center;background-size: 20px;} td.torrents_sx a, td.torrents_sx a:hover{color: #999;font-size: 10px;} td.torrents_sx {vertical-align: bottom;text-align:center;}');
         setTimeout(function () {
             $('.torrents_fajlok').after('<td class="torrents_sx" class="torrents_sx"><a title="Torrent file letöltése" href="javascript:void(0)" target="dfr">DL</a></td>');
