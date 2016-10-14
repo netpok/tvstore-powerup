@@ -69,4 +69,20 @@
             $('.torrents_epizod_mufaj').attr("colspan", 2);
         }, 1000);
     }
+
+    function sendToqB(url) {
+        var data = new FormData();
+        data.append('urls', url);
+        data.append('savepath', $("#locationBase").text() + $("#location").val());
+        data.append('label', $("#dlLabel").val());
+        data.append('cookie', "");
+        GM_xmlhttpRequest({
+            method: "POST",
+            url: "https://localhost:8080/command/download",
+            data: data,
+            onload: function (response, a) {
+                $.notify("Torrent sent", "success");
+            }
+        });
+    }
 })();
