@@ -42,12 +42,17 @@
             '<label>Apply for all: <input type="checkbox" id="applyForAll"></label></form></div>');
         GM_addStyle('.ui-widget-header .ui-icon { background-image: url(https://code.jquery.com/ui/1.12.1/themes/base/images/ui-icons_444444_256x240.png)!important;} .torrents_trakt a{outline: none;width: 28px;height: 27px;display: block;padding: 0;background: url(https://cdn-images-1.medium.com/fit/c/36/36/1*r3Oe6V2xRiOo9zlLIByGXA.png) no-repeat center;background-size: 20px;} .torrents_sj a{outline: none;width: 28px;height: 27px;display: block;padding: 0;background: url(/pic/ico_junkie.png) no-repeat center;background-size: 20px;} td.torrents_sx a, td.torrents_sx a:hover{color: #999;font-size: 10px;} td.torrents_sx {vertical-align: bottom;text-align:center;}');
         $(".table_head:first").prepend(' <a id="localRSS" href="javascript:void(0);" target="_blank"><img title="A kiválaszott feltételek szerinti RSS hozzáadása qBittorrenthez" src="/pic/rss.png" style="-webkit-filter: hue-rotate(180deg)"></a>');
-        $('#localRSS').click(function () {
-            this.href = "http://sikuli.localhost/rss/tvstore/" + encodeURIComponent($('#catp1').attr("title")) + "/" + encodeURIComponent(encodeURIComponent(siteURL + '/torrent/rss.php?rss_uid=' + rss_uid + '&rss_passkey=' + rss_passkey + '&' + s_gene_params(-1)));
+        $('#localRSS').click(function (e) {
+            var title = $('#catp1').attr("title");
+            if ($("#search_cat_sel_eng").find(">optgroup:first").text().indexOf(title) != -1) {
+                this.href = "http://sikuli.localhost/rss/tvstore/" + encodeURIComponent($("#torrentcell1_2c").text().replace(/ - [0-9]+x[0-9]+..\[.*/, "")) + "/" + encodeURIComponent(encodeURIComponent(siteURL + '/torrent/rss.php?rss_uid=' + rss_uid + '&rss_passkey=' + rss_passkey + '&' + s_gene_params(-1)));
+            } else {
+                this.href = "http://sikuli.localhost/rss/tvstore/" + encodeURIComponent(title) + "/" + encodeURIComponent(encodeURIComponent(siteURL + '/torrent/rss.php?rss_uid=' + rss_uid + '&rss_passkey=' + rss_passkey + '&' + s_gene_params(-1)));
+            }
         });
         setTimeout(function () {
             $('.torrents_fajlok').after('<td class="torrents_sx" class="torrents_sx"><a title="Torrent file letöltése" href="javascript:void(0)" target="dfr">DL</a></td>');
-            $('.torrents_letolt_free>a').prop("title","qBittorrentbe küldés").click(function (e) {
+            $('.torrents_letolt_free>a').prop("title", "qBittorrentbe küldés").click(function (e) {
                 e.preventDefault();
                 var url = this.href + '&type=rss&uid=' + rss_uid + '&passkey=' + rss_passkey;
                 if ($("#applyForAll").prop("checked")) {
