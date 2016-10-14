@@ -18,4 +18,6 @@
     if (purl().attr("protocol") != "https") {
         location.href = location.href.replace('http:', 'https:');
     }
+
+    $('#menu_button2').children()[0].href = $('#menu_button2').children()[0].href + '#q=24&h=2';
 })();
